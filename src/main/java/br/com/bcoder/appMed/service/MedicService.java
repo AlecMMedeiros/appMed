@@ -15,4 +15,5 @@ public class MedicService {
   public MedicModel simpleFindMedicById (Long id){
     return medicRepository.findMedicModelById(id);
   }
+
 }

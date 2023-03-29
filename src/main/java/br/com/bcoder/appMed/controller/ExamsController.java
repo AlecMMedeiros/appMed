@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
+
 
 @RestController
 @RequestMapping("/exams")
@@ -20,8 +22,8 @@ public class ExamsController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity registerExam ( @RequestBody ExamPostDTO newExam ){
-    return examsService.registerExam(newExam);
+  public ResponseEntity<String> registerExam ( @RequestBody ExamPostDTO newExam, Principal principal ){
+    return examsService.registerExam(newExam, principal.getName());
   }
 
 }

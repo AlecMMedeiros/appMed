@@ -17,10 +17,8 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
-
 
   public UserService ( UserRepository userRepository, PasswordEncoder passwordEncoder ) {
     this.userRepository = userRepository;
@@ -72,4 +70,5 @@ public class UserService {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Your request cannot be processed due to an error caused by " + exception.getMessage());
     }
   }
+
 }
