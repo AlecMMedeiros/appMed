@@ -4,6 +4,7 @@ import br.com.bcoder.appMed.model.ConsultationModel;
 import br.com.bcoder.appMed.model.ExamsModel;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 public class ConsultationDTO {
@@ -11,16 +12,23 @@ public class ConsultationDTO {
   private String description;
   private String specialty;
   private LocalDateTime createdAt;
-  private Set<ExamsModel> exams;
+  private Set<ExamDTO> exams;
 
   public ConsultationDTO ( ConsultationModel consultationModel ) {
     this.name = consultationModel.getName();
     this.description = consultationModel.getDescription();
     this.specialty = consultationModel.getSpecialty();
     this.createdAt = consultationModel.getCreatedAt();
-    this.exams = consultationModel.getExams();
+    this.exams = this.generateDTOSet(consultationModel);
   }
 
+  public Set<ExamDTO> generateDTOSet( ConsultationModel consultationModel) {
+    Set<ExamDTO> examDTOS = new HashSet<>();
+    for (ExamsModel exam : consultationModel.getExams()) {
+      examDTOS.add(new ExamDTO(exam));
+    }
+    return examDTOS;
+  }
   public String getName () {
     return name;
   }
@@ -53,11 +61,11 @@ public class ConsultationDTO {
     this.specialty = specialty;
   }
 
-  public Set<ExamsModel> getExams () {
+  public Set<ExamDTO> getExams () {
     return exams;
   }
 
-  public void setExams ( Set<ExamsModel> exams ) {
+  public void setExams ( Set<ExamDTO> exams ) {
     this.exams = exams;
   }
 }

@@ -1,5 +1,6 @@
 package br.com.bcoder.appMed.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
@@ -25,12 +26,8 @@ public class ConsultationModel {
   @NotNull
   @Column(nullable = false)
   private String specialty;
-  @ManyToMany
-  @JoinTable(
-      name = "consultations_exams",
-      joinColumns = @JoinColumn(name = "consultation_id"),
-      inverseJoinColumns = @JoinColumn(name = "exam_id")
-  )
+  @OneToMany(mappedBy = "consultation", cascade = CascadeType.REMOVE , fetch = FetchType.EAGER)
+  @JsonIgnore
   private Set<ExamsModel> exams;
   @CreationTimestamp
   @Column(nullable = false)
@@ -92,8 +89,8 @@ public class ConsultationModel {
     return exams;
   }
 
-  public void setExams ( Set<ExamsModel> exams ) {
-    this.exams = exams;
+  public void setExams ( ExamsModel exam ) {
+    this.exams.add(exam);
   }
 
 }

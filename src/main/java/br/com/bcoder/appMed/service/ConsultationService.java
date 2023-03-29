@@ -17,6 +17,14 @@ public class ConsultationService {
     this.userService = userService;
   }
 
+  public ConsultationModel simpleFindById( Long id){
+    return consultationRepository.findConsultationModelById(id);
+  }
+
+  public void simpleSave( ConsultationModel consultation){
+    consultationRepository.save(consultation);
+  }
+
   public ResponseEntity registerConsultation ( ConsultationModel newConsultation, String email ) {
     UserModel refUser = userService.findUserByEmail(email) ;
     ConsultationModel transactionConsultation;
@@ -25,7 +33,7 @@ public class ConsultationService {
       transactionConsultation = consultationRepository.save(newConsultation);
       refUser.setConsultations(transactionConsultation);
       userService.simpleSave(refUser);
-      return ResponseEntity.status(HttpStatus.CREATED).body("Consultation created successfully");
+      return ResponseEntity.status(HttpStatus.CREATED).body("Consultation successfully created");
     } catch (Exception exception) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Your request cannot be processed due to an error caused by " + exception.getMessage());
     }

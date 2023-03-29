@@ -24,8 +24,21 @@ public class ExamsModel {
   @JoinColumn(name = "medic_id")
   private MedicModel requestedBy;
   @NotNull
+  @ManyToOne
+  @JoinColumn(name = "consultation_id")
+  private ConsultationModel consultation;
+  @NotNull
   @Column(nullable = false)
   private LocalDateTime scheduled;
+
+  public ConsultationModel getConsultation () {
+    return consultation;
+  }
+
+  public void setConsultation ( ConsultationModel consultation ) {
+    this.consultation = consultation;
+  }
+
   @CreationTimestamp
   private LocalDateTime createdAt;
   @UpdateTimestamp

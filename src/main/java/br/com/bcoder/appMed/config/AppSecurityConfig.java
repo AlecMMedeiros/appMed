@@ -22,7 +22,8 @@ public class AppSecurityConfig {
   };
   public static final String[] ENDPOINTS_USERS = {
       "/consultations/**",
-      "/users/**"
+      "/users/**",
+      "/exams/**"
   };
 
   public static final String[] ENDPOINTS_PERMIT_ALL = {
