@@ -2,8 +2,8 @@ package br.com.bcoder.appMed.dto;
 
 import br.com.bcoder.appMed.model.ExamsModel;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class ExamDTO {
   private Long id;
@@ -59,5 +59,18 @@ public class ExamDTO {
 
   public void setScheduled ( LocalDateTime scheduled ) {
     this.scheduled = scheduled;
+  }
+
+  @Override
+  public boolean equals ( Object o ) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ExamDTO examDTO = (ExamDTO) o;
+    return Objects.equals(id, examDTO.id) && Objects.equals(name, examDTO.name) && Objects.equals(description, examDTO.description) && Objects.equals(requestedBy, examDTO.requestedBy) && Objects.equals(scheduled, examDTO.scheduled);
+  }
+
+  @Override
+  public int hashCode () {
+    return Objects.hash(id, name, description, requestedBy, scheduled);
   }
 }

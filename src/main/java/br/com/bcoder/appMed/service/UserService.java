@@ -65,7 +65,7 @@ public class UserService {
       String hashPwd = passwordEncoder.encode ( newUser.getPassword () );
       newUser.setPassword(hashPwd);
       userRepository.save(newUser);
-      return ResponseEntity.status(HttpStatus.CREATED).body("User created!");
+      return ResponseEntity.status(HttpStatus.CREATED).body("User " + newUser.getDisplayName() + " created");
     } catch (Exception exception){
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Your request cannot be processed due to an error caused by " + exception.getMessage());
     }

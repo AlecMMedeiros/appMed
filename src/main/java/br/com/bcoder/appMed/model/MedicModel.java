@@ -1,13 +1,17 @@
 package br.com.bcoder.appMed.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "medic")
 public class MedicModel {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @NotNull
   @Column(nullable = false)
@@ -16,13 +20,37 @@ public class MedicModel {
   @Column(nullable = false)
   private String local;
   @NotNull
-  @Column(nullable = false, unique = true)
-  private Long CRM;
+  @Column(nullable = false)
+  private Long crm;
   @NotNull
   @Column(nullable = false)
-  private String Specialty;
+  private String specialty;
+  @ManyToOne()
+  @JoinColumn(name = "user_id")
+  private UserModel user;
+  @JsonIgnore
+  @OneToMany(mappedBy = "medic", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+  private List<ConsultationModel> consultations = new ArrayList<>();
+
 
   public MedicModel () {
+  }
+
+
+  public UserModel getUser () {
+    return user;
+  }
+
+  public void setUser ( UserModel user ) {
+    this.user = user;
+  }
+
+  public List<ConsultationModel> getConsultations () {
+    return consultations;
+  }
+
+  public void setConsultations ( ConsultationModel consultation ) {
+    this.consultations.add(consultation);
   }
 
   public Long getId () {
@@ -50,18 +78,28 @@ public class MedicModel {
   }
 
   public Long getCRM () {
-    return CRM;
+    return crm;
   }
 
-  public void setCRM ( Long CRM ) {
-    this.CRM = CRM;
+  public void setCRM ( Long crm ) {
+    this.crm = crm;
   }
 
   public String getSpecialty () {
-    return Specialty;
+    return specialty;
   }
 
   public void setSpecialty ( String specialty ) {
-    Specialty = specialty;
+    this.specialty = specialty;
+  }
+
+  @Override
+  public String toString () {
+    return "Medic Data{" +
+        "name='" + name + '\'' +
+        ", local='" + local + '\'' +
+        ", crm=" + crm +
+        ", specialty='" + specialty + '\'' +
+        '}';
   }
 }

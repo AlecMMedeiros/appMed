@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "exams")
 public class ExamsModel {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @NotNull
   @Column(nullable = false)
@@ -23,7 +23,6 @@ public class ExamsModel {
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "medic_id")
   private MedicModel requestedBy;
-  @NotNull
   @ManyToOne
   @JoinColumn(name = "consultation_id")
   private ConsultationModel consultation;

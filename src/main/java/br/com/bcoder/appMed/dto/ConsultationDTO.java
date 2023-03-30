@@ -5,6 +5,7 @@ import br.com.bcoder.appMed.model.ExamsModel;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class ConsultationDTO {
@@ -67,5 +68,18 @@ public class ConsultationDTO {
 
   public void setExams ( Set<ExamDTO> exams ) {
     this.exams = exams;
+  }
+
+  @Override
+  public boolean equals ( Object o ) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ConsultationDTO that = (ConsultationDTO) o;
+    return Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(specialty, that.specialty) && Objects.equals(createdAt, that.createdAt) && Objects.equals(exams, that.exams);
+  }
+
+  @Override
+  public int hashCode () {
+    return Objects.hash(name, description, specialty, createdAt, exams);
   }
 }

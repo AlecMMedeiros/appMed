@@ -17,13 +17,11 @@ import java.util.Collections;
 @Configuration
 public class AppSecurityConfig {
 
-  public static final String[] ENDPOINTS_STAFF_ONLY = {
-
-  };
   public static final String[] ENDPOINTS_USERS = {
       "/consultations/**",
       "/users/**",
-      "/exams/**"
+      "/exams/**",
+      "/medics/**"
   };
 
   public static final String[] ENDPOINTS_PERMIT_ALL = {
@@ -38,11 +36,11 @@ public class AppSecurityConfig {
   SecurityFilterChain defaultSecurityFilterChain( HttpSecurity http) throws Exception {
     CsrfTokenRequestAttributeHandler requestAttributeHandler = new CsrfTokenRequestAttributeHandler();
     http.cors().configurationSource(request -> {
-          CorsConfiguration configuration = new CorsConfiguration();
-          configuration.setAllowedOrigins(Collections.singletonList("*"));
-          configuration.setAllowedMethods(Collections.singletonList("*"));
+          CorsConfiguration configuration = new CorsConfiguration(); // Setting Cors configuration
+          configuration.setAllowedOrigins(Collections.singletonList("*")); // Setting Cors Allowed Origins
+          configuration.setAllowedMethods(Collections.singletonList("*")); // Setting Cors Allowed Methods
           configuration.setAllowCredentials(true);
-          configuration.setAllowedHeaders(Collections.singletonList("*"));
+          configuration.setAllowedHeaders(Collections.singletonList("*")); // Setting Cors Allowed Headers
           configuration.setMaxAge(3600L);
           return configuration;
         }).and()

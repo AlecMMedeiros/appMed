@@ -1,8 +1,7 @@
 package br.com.bcoder.appMed.controller;
 
-import br.com.bcoder.appMed.model.ConsultationModel;
+import br.com.bcoder.appMed.dto.ConsultationPostDTO;
 import br.com.bcoder.appMed.service.ConsultationService;
-import br.com.bcoder.appMed.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +21,7 @@ public class ConsultationController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity registerConsultation( @RequestBody ConsultationModel newConsultation, Principal principal ) {
+  public ResponseEntity registerConsultation( @RequestBody ConsultationPostDTO newConsultation, Principal principal ) {
     return consultationService.registerConsultation(newConsultation, principal.getName());
   }
 }

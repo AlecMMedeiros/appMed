@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "consultations")
 public class ConsultationModel {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @ManyToOne
   @JoinColumn(name = "user_id")
@@ -23,6 +23,9 @@ public class ConsultationModel {
   @NotNull
   @Column(nullable = false)
   private String description;
+  @ManyToOne
+  @JoinColumn(name = "medic_id")
+  private MedicModel medic;
   @NotNull
   @Column(nullable = false)
   private String specialty;
@@ -91,6 +94,14 @@ public class ConsultationModel {
 
   public void setExams ( ExamsModel exam ) {
     this.exams.add(exam);
+  }
+
+  public MedicModel getMedic () {
+    return medic;
+  }
+
+  public void setMedic ( MedicModel medic ) {
+    this.medic = medic;
   }
 
 }

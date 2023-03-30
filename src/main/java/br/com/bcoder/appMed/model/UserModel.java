@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "users")
 public class UserModel {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @Email
   @NotNull
@@ -25,9 +25,12 @@ public class UserModel {
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @Column(nullable = false)
   private String password;
+  @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+  @JsonIgnore
+  private List<MedicModel> medics = new ArrayList<>();
   @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE , fetch = FetchType.EAGER)
   @JsonIgnore
-  private List<ConsultationModel> consultations = new ArrayList<>();
+  private List<ConsultationModel> consultations = new ArrayList<>(); //Review code: Why List and noy Set ?
   public UserModel () {
   }
 
@@ -70,4 +73,13 @@ public class UserModel {
   public void setConsultations ( ConsultationModel consultation ) {
     this.consultations.add(consultation);
   }
+
+  public List<MedicModel> getMedics () {
+    return medics;
+  }
+
+  public void setMedics ( MedicModel medic ) {
+    this.medics.add(medic);
+  }
+
 }
