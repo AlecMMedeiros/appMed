@@ -1,4 +1,4 @@
-package br.com.bcoder.appMed.dto;
+package br.com.bcoder.appMed.dto.examsDTO;
 
 import br.com.bcoder.appMed.model.ExamsModel;
 
@@ -10,6 +10,7 @@ public class ExamDTO {
   private String name;
   private String description;
   private String requestedBy;
+  private Long crm;
   private LocalDateTime scheduled;
 
 
@@ -18,6 +19,7 @@ public class ExamDTO {
     this.name = exam.getName();
     this.description = exam.getDescription();
     this.requestedBy = exam.getRequestedBy().getName();
+    this.crm = exam.getRequestedBy().getCRM();
     this.scheduled = exam.getScheduled();
   }
 
@@ -51,6 +53,14 @@ public class ExamDTO {
 
   public void setRequestedBy ( String requestedBy ) {
     this.requestedBy = requestedBy;
+  }
+
+  public Long getCrm () {
+    return crm;
+  }
+
+  public void setCrm ( Long crm ) {
+    this.crm = crm;
   }
 
   public LocalDateTime getScheduled () {

@@ -1,7 +1,7 @@
 package br.com.bcoder.appMed.service;
 
-import br.com.bcoder.appMed.dto.ConsultationDTO;
-import br.com.bcoder.appMed.dto.UserWithConsultationsDTO;
+import br.com.bcoder.appMed.dto.consultationDTO.ConsultationDTO;
+import br.com.bcoder.appMed.dto.userDTO.UserWithConsultationsDTO;
 import br.com.bcoder.appMed.model.ConsultationModel;
 import br.com.bcoder.appMed.model.UserModel;
 import br.com.bcoder.appMed.repository.UserRepository;

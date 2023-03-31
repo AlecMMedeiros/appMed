@@ -1,12 +1,9 @@
 package br.com.bcoder.appMed.controller;
 
-import br.com.bcoder.appMed.dto.ExamPostDTO;
+import br.com.bcoder.appMed.dto.examsDTO.ExamPostDTO;
 import br.com.bcoder.appMed.service.ExamsService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -21,9 +18,18 @@ public class ExamsController {
     this.examsService = examsService;
   }
 
+  @GetMapping("/list")
+  public ResponseEntity listCurrentUserExams (Principal principal){
+    return examsService.listCurrentUserExams(principal.getName());
+  }
   @PostMapping("/register")
   public ResponseEntity<String> registerExam ( @RequestBody ExamPostDTO newExam, Principal principal ){
     return examsService.registerExam(newExam, principal.getName());
+  }
+
+  @DeleteMapping("/remove")
+  public  ResponseEntity<String> deleteExam (@RequestBody Long id, Principal principal) {
+    return  examsService.deleteExam(principal.getName(), id);
   }
 
 }

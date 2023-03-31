@@ -20,7 +20,7 @@ public class ExamsModel {
   @Column(nullable = false)
   private String description;
   @NotNull
-  @OneToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   @JoinColumn(name = "medic_id")
   private MedicModel requestedBy;
   @ManyToOne

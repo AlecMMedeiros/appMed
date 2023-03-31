@@ -1,6 +1,7 @@
 package br.com.bcoder.appMed.service;
 
-import br.com.bcoder.appMed.dto.ConsultationPostDTO;
+import br.com.bcoder.appMed.dto.consultationDTO.ConsultationDTO;
+import br.com.bcoder.appMed.dto.consultationDTO.ConsultationPostDTO;
 import br.com.bcoder.appMed.model.ConsultationModel;
 import br.com.bcoder.appMed.model.MedicModel;
 import br.com.bcoder.appMed.model.UserModel;
@@ -8,6 +9,9 @@ import br.com.bcoder.appMed.repository.ConsultationRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ConsultationService {
@@ -42,11 +46,24 @@ public class ConsultationService {
     consultationModel.setSpecialty(consultationPostDTO.getSpecialty());
   }
 
+  public ResponseEntity listCurrentUserConsultations(String email) {
+    UserModel refUser = userService.findUserByEmail(email);
+    List<ConsultationDTO> refConsultation = new ArrayList<>();
+    try {
+      for (ConsultationModel consultationModel : consultationRepository.findConsultationModelByUserId(refUser.getId())) {
+        refConsultation.add(new ConsultationDTO(consultationModel));
+      }
+      return ResponseEntity.status(HttpStatus.OK).body(refConsultation);
+    } catch (Exception exception) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Your request cannot be processed due to an error caused by " + exception.getMessage());
+    }
+  }
+
 
   public ResponseEntity<String> registerConsultation ( ConsultationPostDTO newConsultation, String email ) {
     UserModel refUser = userService.findUserByEmail(email) ;
     MedicModel refMedic = medicService.simpleFindMedicById(newConsultation.getMedic());
-    if( !medicService.listCurrentUserMedics(email).contains(refMedic)) {
+    if( !medicService.simpleFindMedicsById(email).contains(refMedic)) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No medic with this data: " + refMedic + " associated with " + refUser.getDisplayName());
     }
     ConsultationModel transactionConsultation = new ConsultationModel();

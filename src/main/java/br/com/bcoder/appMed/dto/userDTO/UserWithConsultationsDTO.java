@@ -1,6 +1,6 @@
-package br.com.bcoder.appMed.dto;
+package br.com.bcoder.appMed.dto.userDTO;
 
-import br.com.bcoder.appMed.model.ConsultationModel;
+import br.com.bcoder.appMed.dto.consultationDTO.ConsultationDTO;
 import br.com.bcoder.appMed.model.UserModel;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package br.com.bcoder.appMed.dto;
+package br.com.bcoder.appMed.dto.examsDTO;
 
 
 import java.time.LocalDateTime;

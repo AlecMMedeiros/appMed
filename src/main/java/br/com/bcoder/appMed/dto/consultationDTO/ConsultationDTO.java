@@ -1,5 +1,6 @@
-package br.com.bcoder.appMed.dto;
+package br.com.bcoder.appMed.dto.consultationDTO;
 
+import br.com.bcoder.appMed.dto.examsDTO.ExamDTO;
 import br.com.bcoder.appMed.model.ConsultationModel;
 import br.com.bcoder.appMed.model.ExamsModel;
 
@@ -12,6 +13,7 @@ public class ConsultationDTO {
   private String name;
   private String description;
   private String specialty;
+  private String medic;
   private LocalDateTime createdAt;
   private Set<ExamDTO> exams;
 
@@ -19,6 +21,7 @@ public class ConsultationDTO {
     this.name = consultationModel.getName();
     this.description = consultationModel.getDescription();
     this.specialty = consultationModel.getSpecialty();
+    this.medic = consultationModel.getMedic().getName();
     this.createdAt = consultationModel.getCreatedAt();
     this.exams = this.generateDTOSet(consultationModel);
   }
@@ -52,6 +55,14 @@ public class ConsultationDTO {
 
   public void setDescription ( String description ) {
     this.description = description;
+  }
+
+  public String getMedic () {
+    return medic;
+  }
+
+  public void setMedic ( String medic ) {
+    this.medic = medic;
   }
 
   public String getSpecialty () {

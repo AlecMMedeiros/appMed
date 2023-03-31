@@ -25,7 +25,9 @@ public class AppSecurityConfig {
   };
 
   public static final String[] ENDPOINTS_PERMIT_ALL = {
-      "/register/**"
+      "/register/**",
+      "/v3/api-docs/**",
+      "/swagger-ui/**"
   };
 
   public static final String[] ignoringRequestMatchers = {

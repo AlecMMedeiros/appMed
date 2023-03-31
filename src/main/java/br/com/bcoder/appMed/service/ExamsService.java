@@ -1,6 +1,7 @@
 package br.com.bcoder.appMed.service;
 
-import br.com.bcoder.appMed.dto.ExamPostDTO;
+import br.com.bcoder.appMed.dto.examsDTO.ExamDTO;
+import br.com.bcoder.appMed.dto.examsDTO.ExamPostDTO;
 import br.com.bcoder.appMed.model.ConsultationModel;
 import br.com.bcoder.appMed.model.ExamsModel;
 import br.com.bcoder.appMed.model.MedicModel;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -24,6 +27,15 @@ public class ExamsService {
     this.consultationService = consultationService;
     this.userService = userService;
     this.medicService = medicService;
+  }
+
+  public ResponseEntity listCurrentUserExams(String email){
+    UserModel refUser = userService.findUserByEmail(email);
+    List<ExamDTO> refExams = new ArrayList<>();
+    for (ExamsModel examsModel : examsRepository.findExamsModelByConsultationUserId(refUser.getId())) {
+      refExams.add(new ExamDTO(examsModel));
+    }
+    return ResponseEntity.status(HttpStatus.OK).body(refExams);
   }
 
   private ExamsModel generateModelFromDTO(ExamPostDTO exam, ConsultationModel refConsultation, MedicModel refMedic) {
@@ -58,4 +70,16 @@ public class ExamsService {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Consultation or Medic not found at Database");
     }
   }
+
+  public ResponseEntity<String> deleteExam(String email, Long id){
+    UserModel refUser = userService.findUserByEmail(email);
+    ExamsModel refExam = examsRepository.findExamsModelByIdAndConsultationUserId(id, refUser.getId());
+    if( refExam.getConsultation().getExams().contains(refExam)){
+      examsRepository.deleteById(refExam.getId());
+      return ResponseEntity.status(HttpStatus.OK).body("Exam successfully deleted");
+    } else {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("You don't have access to this exam");
+    }
+  }
+
 }

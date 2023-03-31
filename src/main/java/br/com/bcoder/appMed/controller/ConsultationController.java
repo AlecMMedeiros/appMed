@@ -1,12 +1,9 @@
 package br.com.bcoder.appMed.controller;
 
-import br.com.bcoder.appMed.dto.ConsultationPostDTO;
+import br.com.bcoder.appMed.dto.consultationDTO.ConsultationPostDTO;
 import br.com.bcoder.appMed.service.ConsultationService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -18,6 +15,11 @@ public class ConsultationController {
 
   public ConsultationController ( ConsultationService consultationService ) {
     this.consultationService = consultationService;
+  }
+
+  @GetMapping("/list")
+  public ResponseEntity listCurrentUserConsultations (Principal principal) {
+    return  consultationService.listCurrentUserConsultations(principal.getName());
   }
 
   @PostMapping("/register")

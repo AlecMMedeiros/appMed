@@ -31,6 +31,9 @@ public class MedicModel {
   @JsonIgnore
   @OneToMany(mappedBy = "medic", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
   private List<ConsultationModel> consultations = new ArrayList<>();
+  @JsonIgnore
+  @OneToMany(mappedBy = "requestedBy", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+  private List<ExamsModel> exams = new ArrayList<>();
 
 
   public MedicModel () {
@@ -87,6 +90,26 @@ public class MedicModel {
 
   public String getSpecialty () {
     return specialty;
+  }
+
+  public Long getCrm () {
+    return crm;
+  }
+
+  public void setCrm ( Long crm ) {
+    this.crm = crm;
+  }
+
+  public void setConsultations ( List<ConsultationModel> consultations ) {
+    this.consultations = consultations;
+  }
+
+  public List<ExamsModel> getExams () {
+    return exams;
+  }
+
+  public void setExams ( List<ExamsModel> exams ) {
+    this.exams = exams;
   }
 
   public void setSpecialty ( String specialty ) {

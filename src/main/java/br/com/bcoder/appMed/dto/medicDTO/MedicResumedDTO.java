@@ -1,16 +1,21 @@
-package br.com.bcoder.appMed.dto;
+package br.com.bcoder.appMed.dto.medicDTO;
 
-public class MedicPostDTO {
+import br.com.bcoder.appMed.model.MedicModel;
+
+public class MedicResumedDTO {
   private String name;
   private String local;
   private Long crm;
   private String specialty;
 
-  public MedicPostDTO ( String name, String local, Long crm, String specialty ) {
-    this.name = name;
-    this.local = local;
-    this.crm = crm;
-    this.specialty = specialty;
+  public MedicResumedDTO () {
+  }
+
+  public MedicResumedDTO ( MedicModel medicModel ) {
+    this.name = medicModel.getName();
+    this.local = medicModel.getLocal();
+    this.crm = medicModel.getCRM();
+    this.specialty = medicModel.getSpecialty();
   }
 
   public String getName () {

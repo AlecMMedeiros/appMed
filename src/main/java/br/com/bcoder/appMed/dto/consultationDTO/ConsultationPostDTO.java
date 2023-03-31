@@ -1,4 +1,4 @@
-package br.com.bcoder.appMed.dto;
+package br.com.bcoder.appMed.dto.consultationDTO;
 
 public class ConsultationPostDTO {
   private String name;
