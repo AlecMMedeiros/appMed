@@ -10,5 +10,9 @@ import java.util.List;
 public interface ExamsRepository extends JpaRepository<ExamsModel, Long> {
 
   List<ExamsModel> findExamsModelByConsultationUserId(Long userId);
-  ExamsModel findExamsModelByIdAndConsultationUserId(Long consultationId, Long userID);
+
+  ExamsModel findExamsModelById( String id );
+  void deleteById( String id);
+
+  ExamsModel findExamsModelByIdAndConsultationUserId(String consultationId, Long userID);
 }

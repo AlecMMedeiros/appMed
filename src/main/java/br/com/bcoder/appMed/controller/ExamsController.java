@@ -1,6 +1,8 @@
 package br.com.bcoder.appMed.controller;
 
+import br.com.bcoder.appMed.dto.examsDTO.ExamDeleteDTO;
 import br.com.bcoder.appMed.dto.examsDTO.ExamPostDTO;
+import br.com.bcoder.appMed.dto.examsDTO.ExamUpdateDTO;
 import br.com.bcoder.appMed.service.ExamsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +29,14 @@ public class ExamsController {
     return examsService.registerExam(newExam, principal.getName());
   }
 
+  @PutMapping("/update")
+  public ResponseEntity<String> updateExam ( @RequestBody ExamUpdateDTO examUpdateDTO, Principal principal ) {
+    return examsService.updateExam(principal.getName(), examUpdateDTO);
+  }
+
   @DeleteMapping("/remove")
-  public  ResponseEntity<String> deleteExam (@RequestBody Long id, Principal principal) {
-    return  examsService.deleteExam(principal.getName(), id);
+  public  ResponseEntity<String> deleteExam ( @RequestBody ExamDeleteDTO examDeleteDTO, Principal principal) {
+    return  examsService.deleteExam(examDeleteDTO, principal.getName());
   }
 
 }

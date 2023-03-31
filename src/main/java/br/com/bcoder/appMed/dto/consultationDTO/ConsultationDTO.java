@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public class ConsultationDTO {
+  private String id;
   private String name;
   private String description;
   private String specialty;
@@ -18,12 +19,21 @@ public class ConsultationDTO {
   private Set<ExamDTO> exams;
 
   public ConsultationDTO ( ConsultationModel consultationModel ) {
+    this.id = consultationModel.getId();
     this.name = consultationModel.getName();
     this.description = consultationModel.getDescription();
     this.specialty = consultationModel.getSpecialty();
     this.medic = consultationModel.getMedic().getName();
     this.createdAt = consultationModel.getCreatedAt();
     this.exams = this.generateDTOSet(consultationModel);
+  }
+
+  public String getId () {
+    return id;
+  }
+
+  public void setId ( String id ) {
+    this.id = id;
   }
 
   public Set<ExamDTO> generateDTOSet( ConsultationModel consultationModel) {

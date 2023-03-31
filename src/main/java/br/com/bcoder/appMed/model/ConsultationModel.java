@@ -12,8 +12,7 @@ import java.util.Set;
 @Table(name = "consultations")
 public class ConsultationModel {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private String id;
   @ManyToOne
   @JoinColumn(name = "user_id")
   private UserModel user;
@@ -48,11 +47,11 @@ public class ConsultationModel {
 
   }
 
-  public Long getId () {
+  public String getId () {
     return id;
   }
 
-  public void setId ( Long id ) {
+  public void setId ( String id ) {
     this.id = id;
   }
 

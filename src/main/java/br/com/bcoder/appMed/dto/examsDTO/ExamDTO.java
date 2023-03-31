@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class ExamDTO {
-  private Long id;
+  private String id;
   private String name;
   private String description;
   private String requestedBy;
@@ -23,11 +23,11 @@ public class ExamDTO {
     this.scheduled = exam.getScheduled();
   }
 
-  public Long getId () {
+  public String getId () {
     return id;
   }
 
-  public void setId ( Long id ) {
+  public void setId ( String id ) {
     this.id = id;
   }
 

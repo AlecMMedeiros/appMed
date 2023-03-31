@@ -92,14 +92,6 @@ public class MedicModel {
     return specialty;
   }
 
-  public Long getCrm () {
-    return crm;
-  }
-
-  public void setCrm ( Long crm ) {
-    this.crm = crm;
-  }
-
   public void setConsultations ( List<ConsultationModel> consultations ) {
     this.consultations = consultations;
   }

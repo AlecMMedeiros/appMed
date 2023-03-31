@@ -1,21 +1,28 @@
 package br.com.bcoder.appMed.dto.examsDTO;
 
-
 import java.time.LocalDateTime;
 
-public class ExamPostDTO {
+public class ExamUpdateDTO {
+  private String id;
   private String name;
   private String description;
   private Long medicId;
-  private String consultationId;
   private LocalDateTime scheduled;
 
-  public ExamPostDTO ( String name, String description, Long medicId, String consultationId, LocalDateTime scheduled ) {
+  public ExamUpdateDTO ( String id, String name, String description, Long medicId, LocalDateTime scheduled ) {
+    this.id = id;
     this.name = name;
     this.description = description;
     this.medicId = medicId;
-    this.consultationId = consultationId;
     this.scheduled = scheduled;
+  }
+
+  public String getId () {
+    return id;
+  }
+
+  public void setId ( String id ) {
+    this.id = id;
   }
 
   public String getName () {
@@ -40,14 +47,6 @@ public class ExamPostDTO {
 
   public void setMedicId ( Long medicId ) {
     this.medicId = medicId;
-  }
-
-  public String getConsultationId () {
-    return consultationId;
-  }
-
-  public void setConsultationId ( String consultationId ) {
-    this.consultationId = consultationId;
   }
 
   public LocalDateTime getScheduled () {
