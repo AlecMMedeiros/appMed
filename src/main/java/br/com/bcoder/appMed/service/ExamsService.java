@@ -9,6 +9,7 @@ import br.com.bcoder.appMed.model.ExamsModel;
 import br.com.bcoder.appMed.model.MedicModel;
 import br.com.bcoder.appMed.model.UserModel;
 import br.com.bcoder.appMed.repository.ExamsRepository;
+import br.com.bcoder.appMed.service.interfaces.IExameService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ import java.util.Objects;
 import java.util.Random;
 
 @Service
-public class ExamsService {
+public class ExamsService implements IExameService {
   private final ExamsRepository examsRepository;
   private final ConsultationService consultationService;
   private final UserService userService;

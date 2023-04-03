@@ -1,6 +1,6 @@
 package br.com.bcoder.appMed.controller;
 
-import br.com.bcoder.appMed.service.UserService;
+import br.com.bcoder.appMed.service.interfaces.IUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,14 +12,14 @@ import java.security.Principal;
 @RequestMapping("/users")
 public class UserController {
 
-  private final UserService userService;
+  private final IUserService userService;
 
-  public UserController ( UserService userService ) {
+  public UserController ( IUserService userService ) {
     this.userService = userService;
   }
 
   @GetMapping("/info")
-  public ResponseEntity currentUserInfo( Principal principal ){
+  public ResponseEntity<?> currentUserInfo( Principal principal ){
     return userService.currentUserInfo(principal.getName());
   }
 }

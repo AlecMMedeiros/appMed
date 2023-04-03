@@ -4,6 +4,7 @@ import br.com.bcoder.appMed.dto.medicDTO.MedicResumedDTO;
 import br.com.bcoder.appMed.model.MedicModel;
 import br.com.bcoder.appMed.model.UserModel;
 import br.com.bcoder.appMed.repository.MedicRepository;
+import br.com.bcoder.appMed.service.interfaces.IMedicService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MedicService {
+public class MedicService implements IMedicService {
   private final MedicRepository medicRepository;
   private final UserService userService;
 

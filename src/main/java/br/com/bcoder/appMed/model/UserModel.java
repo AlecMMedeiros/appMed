@@ -25,10 +25,10 @@ public class UserModel {
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @Column(nullable = false)
   private String password;
-  @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
   @JsonIgnore
   private List<MedicModel> medics = new ArrayList<>();
-  @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE , fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE , fetch = FetchType.LAZY)
   @JsonIgnore
   private List<ConsultationModel> consultations = new ArrayList<>(); //Review code: Why List and noy Set ?
   public UserModel () {

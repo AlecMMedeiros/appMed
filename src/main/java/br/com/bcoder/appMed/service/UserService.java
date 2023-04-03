@@ -5,6 +5,7 @@ import br.com.bcoder.appMed.dto.userDTO.UserWithConsultationsDTO;
 import br.com.bcoder.appMed.model.ConsultationModel;
 import br.com.bcoder.appMed.model.UserModel;
 import br.com.bcoder.appMed.repository.UserRepository;
+import br.com.bcoder.appMed.service.interfaces.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements IUserService {
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
 
@@ -45,7 +46,7 @@ public class UserService {
     return Optional.empty();
   }
 
-  public ResponseEntity currentUserInfo (String email) {
+  public ResponseEntity<?> currentUserInfo (String email) {
     Optional<UserWithConsultationsDTO> refUser;
     try {
       refUser = this.findUserByEmailWithConsultations(email);

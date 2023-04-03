@@ -1,5 +1,6 @@
 package br.com.bcoder.appMed.service;
 
+import br.com.bcoder.appMed.service.interfaces.IConsultationService;
 import br.com.bcoder.appMed.dto.consultationDTO.ConsultationDTO;
 import br.com.bcoder.appMed.dto.consultationDTO.ConsultationDeleteDTO;
 import br.com.bcoder.appMed.dto.consultationDTO.ConsultationPostDTO;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 @Service
-public class ConsultationService {
+public class ConsultationService implements IConsultationService {
   private final ConsultationRepository consultationRepository;
   private final UserService userService;
   private final MedicService medicService;
@@ -46,10 +47,10 @@ public class ConsultationService {
     consultationModel.setName(consultationPostDTO.getName());
     consultationModel.setDescription(consultationPostDTO.getDescription());
     consultationModel.setMedic(medicModel);
-    consultationModel.setSpecialty(consultationPostDTO.getSpecialty());
+    consultationModel.setSpecialty(medicModel.getSpecialty());
   }
 
-  public ResponseEntity listCurrentUserConsultations(String email) {
+  public ResponseEntity<?> listCurrentUserConsultations(String email) {
     UserModel refUser = userService.findUserByEmail(email);
     List<ConsultationDTO> refConsultation = new ArrayList<>();
     try {

@@ -1,7 +1,7 @@
 package br.com.bcoder.appMed.controller;
 
 import br.com.bcoder.appMed.dto.medicDTO.MedicResumedDTO;
-import br.com.bcoder.appMed.service.MedicService;
+import br.com.bcoder.appMed.service.interfaces.IMedicService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +11,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/medics")
 public class MedicController {
-  private final MedicService medicService;
+  private final IMedicService medicService;
 
-  public MedicController ( MedicService medicService ) {
+  public MedicController ( IMedicService medicService ) {
     this.medicService = medicService;
   }
 

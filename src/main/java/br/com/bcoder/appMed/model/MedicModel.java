@@ -29,10 +29,10 @@ public class MedicModel {
   @JoinColumn(name = "user_id")
   private UserModel user;
   @JsonIgnore
-  @OneToMany(mappedBy = "medic", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "medic", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
   private List<ConsultationModel> consultations = new ArrayList<>();
   @JsonIgnore
-  @OneToMany(mappedBy = "requestedBy", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "requestedBy", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
   private List<ExamsModel> exams = new ArrayList<>();
 
 
