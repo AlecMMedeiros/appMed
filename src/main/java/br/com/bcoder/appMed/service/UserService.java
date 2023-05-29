@@ -53,7 +53,7 @@ public class UserService implements IUserService {
       if( refUser.isPresent()) {
         return ResponseEntity.status(HttpStatus.OK).body(refUser);
       } else {
-        UsernameNotFoundException exception = new UsernameNotFoundException("User Not Found");
+        UsernameNotFoundException exception = new UsernameNotFoundException("User Not Found.");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
       }
     } catch ( Exception exception) {
@@ -63,10 +63,17 @@ public class UserService implements IUserService {
 
   public ResponseEntity<String> registerUser (UserModel newUser){
     try{
+      UserModel refUser = userRepository.findByEmail ( newUser.getEmail() );
+      if (refUser != null) {
+        if (passwordEncoder.matches ( newUser.getPassword() , refUser.getPassword ( ) )) {
+          return ResponseEntity.status(HttpStatus.OK).body("User " + newUser.getDisplayName() + " exists.");
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User " + newUser.getDisplayName() + " exists on our database, but the password doesn't match.");
+      }
       String hashPwd = passwordEncoder.encode ( newUser.getPassword () );
       newUser.setPassword(hashPwd);
       userRepository.save(newUser);
-      return ResponseEntity.status(HttpStatus.CREATED).body("User " + newUser.getDisplayName() + " created");
+      return ResponseEntity.status(HttpStatus.CREATED).body("User " + newUser.getDisplayName() + " created.");
     } catch (Exception exception){
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Your request cannot be processed due to an error caused by " + exception.getMessage());
     }

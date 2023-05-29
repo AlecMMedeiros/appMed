@@ -27,7 +27,8 @@ public class AppSecurityConfig {
   public static final String[] ENDPOINTS_PERMIT_ALL = {
       "/register/**",
       "/v3/api-docs/**",
-      "/swagger-ui/**"
+      "/swagger-ui/**",
+      "/actuator/**",
   };
 
   public static final String[] ignoringRequestMatchers = {
@@ -52,7 +53,6 @@ public class AppSecurityConfig {
         .authorizeHttpRequests()
         .requestMatchers(ENDPOINTS_USERS).authenticated()
         .requestMatchers(ENDPOINTS_PERMIT_ALL).permitAll()
-        .and().formLogin()
         .and().httpBasic();
     return http.build();
   }
