@@ -2,102 +2,72 @@ package br.com.bcoder.appMed.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
+@Getter
 @Entity
 @Table(name = "exams")
 public class ExamsModel {
-  @Id
-  private String id;
-  @NotNull
-  @Column(nullable = false)
-  private String name;
-  @NotNull
-  @Column(nullable = false)
-  private String description;
-  @NotNull
-  @ManyToOne
-  @JoinColumn(name = "medic_id")
-  private MedicModel requestedBy;
-  @ManyToOne
-  @JoinColumn(name = "consultation_id")
-  private ConsultationModel consultation;
-  @NotNull
-  @Column(nullable = false)
-  private LocalDateTime scheduled;
+    @Id
+    private String id;
+    @NotNull
+    @Column(nullable = false)
+    private String name;
+    @NotNull
+    @Column(nullable = false)
+    private String description;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "medic_id")
+    private MedicModel requestedBy;
+    @ManyToOne
+    @JoinColumn(name = "consultation_id")
+    private ConsultationModel consultation;
+    @NotNull
+    @Column(nullable = false)
+    private LocalDateTime scheduled;
 
-  public ConsultationModel getConsultation () {
-    return consultation;
-  }
+    public void setConsultation(ConsultationModel consultation) {
+        this.consultation = consultation;
+    }
 
-  public void setConsultation ( ConsultationModel consultation ) {
-    this.consultation = consultation;
-  }
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
-  @CreationTimestamp
-  private LocalDateTime createdAt;
-  @UpdateTimestamp
-  private LocalDateTime updatedAt;
+    public ExamsModel() {
+    }
 
-  public ExamsModel () {
-  }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-  public String getId () {
-    return id;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public void setId ( String id ) {
-    this.id = id;
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-  public String getName () {
-    return name;
-  }
+    public void setRequestedBy(MedicModel requestedBy) {
+        this.requestedBy = requestedBy;
+    }
 
-  public void setName ( String name ) {
-    this.name = name;
-  }
+    public void setScheduled(LocalDateTime scheduled) {
+        this.scheduled = scheduled;
+    }
 
-  public String getDescription () {
-    return description;
-  }
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 
-  public void setDescription ( String description ) {
-    this.description = description;
-  }
-
-  public MedicModel getRequestedBy () {
-    return requestedBy;
-  }
-
-  public void setRequestedBy ( MedicModel requestedBy ) {
-    this.requestedBy = requestedBy;
-  }
-
-  public LocalDateTime getScheduled () {
-    return scheduled;
-  }
-
-  public void setScheduled ( LocalDateTime scheduled ) {
-    this.scheduled = scheduled;
-  }
-
-  public LocalDateTime getCreatedAt () {
-    return createdAt;
-  }
-
-  public void setCreatedAt ( LocalDateTime createdAt ) {
-    this.createdAt = createdAt;
-  }
-
-  public LocalDateTime getUpdatedAt () {
-    return updatedAt;
-  }
-
-  public void setUpdatedAt ( LocalDateTime updatedAt ) {
-    this.updatedAt = updatedAt;
-  }
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }
