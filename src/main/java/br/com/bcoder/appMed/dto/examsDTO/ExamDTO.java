@@ -1,8 +1,10 @@
 package br.com.bcoder.appMed.dto.examsDTO;
 
 import br.com.bcoder.appMed.model.ExamsModel;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 

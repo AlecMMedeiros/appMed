@@ -3,8 +3,10 @@ package br.com.bcoder.appMed.dto.consultationDTO;
 import br.com.bcoder.appMed.dto.examsDTO.ExamDTO;
 import br.com.bcoder.appMed.model.ConsultationModel;
 import br.com.bcoder.appMed.model.ExamsModel;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
@@ -28,7 +30,7 @@ public class ConsultationDTO {
         this.medic = consultationModel.getMedic().getName();
         this.createdAt = consultationModel.getCreatedAt();
         this.exams = this.generateDTOSet(consultationModel);
-    }
+      }
 
     public void setId(String id) {
         this.id = id;
@@ -65,6 +67,7 @@ public class ConsultationDTO {
     public void setExams(Set<ExamDTO> exams) {
         this.exams = exams;
     }
+
 
     @Override
     public boolean equals(Object o) {

@@ -14,4 +14,6 @@ public interface MedicRepository extends JpaRepository<MedicModel, Long> {
 
     List<MedicModel> findMedicModelsByCrmAndUserId(Long crm, Long userId);
 
+    void deleteByIdAndUserId(Long id, Long userid);
+
 }

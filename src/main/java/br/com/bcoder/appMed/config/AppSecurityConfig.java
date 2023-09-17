@@ -1,5 +1,4 @@
 package br.com.bcoder.appMed.config;
-
 import br.com.bcoder.appMed.filter.CsrfCookieFilter;
 import br.com.bcoder.appMed.filter.JwtAuthFilter;
 import br.com.bcoder.appMed.service.UserInfoService;
@@ -19,10 +18,11 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
 
-import java.security.Key;
+import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
@@ -56,20 +56,28 @@ public class AppSecurityConfig {
     };
 
     @Bean
+    public CsrfTokenRepository csrfTokenRepository() {
+        CookieCsrfTokenRepository repository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+        repository.setCookiePath("/");
+        return repository;
+    }
+    @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         CsrfTokenRequestAttributeHandler requestAttributeHandler = new CsrfTokenRequestAttributeHandler();
         return http.cors().configurationSource(request -> {
                     CorsConfiguration configuration = new CorsConfiguration(); // Setting Cors configuration
-                    configuration.setAllowedOrigins(Collections.singletonList("*")); // Setting Cors Allowed Origins
+                    configuration.setAllowedOrigins(Arrays.asList(
+                            "http://localhost:4200",
+                            "http://localhost"
+                    ));
+                    // Setting Cors Allowed Origins
                     configuration.setAllowedMethods(Collections.singletonList("*")); // Setting Cors Allowed Methods
                     configuration.setAllowCredentials(true);
                     configuration.setAllowedHeaders(Collections.singletonList("*")); // Setting Cors Allowed Headers
                     configuration.setMaxAge(3600L);
                     return configuration;
                 }).and()
-                .csrf((csrf) -> csrf.csrfTokenRequestHandler(requestAttributeHandler).ignoringRequestMatchers(ignoringRequestMatchers)
-                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-                .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
+                .csrf().disable() //Disable for frontend tests
                 .authorizeHttpRequests()
                 .requestMatchers(ENDPOINTS_PERMIT_ALL).permitAll()
                 .and()

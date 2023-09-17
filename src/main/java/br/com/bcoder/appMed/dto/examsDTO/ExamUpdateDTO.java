@@ -1,7 +1,9 @@
 package br.com.bcoder.appMed.dto.examsDTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter

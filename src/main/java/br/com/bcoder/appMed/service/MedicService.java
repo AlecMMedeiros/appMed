@@ -1,9 +1,12 @@
 package br.com.bcoder.appMed.service;
 
+import br.com.bcoder.appMed.dto.examsDTO.ExamDeleteDTO;
 import br.com.bcoder.appMed.dto.medicDTO.MedicResumedDTO;
+import br.com.bcoder.appMed.model.ExamsModel;
 import br.com.bcoder.appMed.model.MedicModel;
 import br.com.bcoder.appMed.model.UserModel;
 import br.com.bcoder.appMed.repository.MedicRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -70,6 +73,18 @@ public class MedicService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Your request cannot be processed due to an error caused by " + exception.getMessage());
         }
 
+    }
+
+    @Transactional
+    public ResponseEntity<String> deleteMedic(Long id   , String email) {
+        UserModel refUser = userService.findUserByEmail(email);
+        MedicModel refMedic = medicRepository.findMedicModelById(id);
+        if (refMedic.getUser().getId().equals(refUser.getId())) {
+            medicRepository.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Medic " + refUser.getDisplayName() + " successfully deleted");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("You don't have access to this medic");
+        }
     }
 
 }

@@ -21,13 +21,12 @@ public class ConsultationController {
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<?> listCurrentUserConsultations(Principal principal) {
-        System.out.println(principal.getName());
         return consultationService.listCurrentUserConsultations(principal.getName());
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> registerConsultation(@RequestBody ConsultationPostDTO newConsultation, Principal principal) {
-        return consultationService.registerConsultation(newConsultation, principal.getName());
+         return consultationService.registerConsultation(newConsultation, principal.getName());
     }
 
     @DeleteMapping("/remove")

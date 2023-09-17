@@ -1,6 +1,10 @@
 package br.com.bcoder.appMed.dto.consultationDTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 public class ConsultationPostDTO {
@@ -9,7 +13,7 @@ public class ConsultationPostDTO {
     private Long medic;
     private String specialty;
 
-    public ConsultationPostDTO(String name, String description, Long medic, String specialty) {
+    public ConsultationPostDTO(String name, String description, Long medic, String specialty, LocalDateTime scheduled) {
         this.name = name;
         this.description = description;
         this.medic = medic;
