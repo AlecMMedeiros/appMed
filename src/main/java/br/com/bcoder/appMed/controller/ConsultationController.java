@@ -1,9 +1,11 @@
 package br.com.bcoder.appMed.controller;
 
-import br.com.bcoder.appMed.service.interfaces.IConsultationService;
+import br.com.bcoder.appMed.service.ConsultationService;
 import br.com.bcoder.appMed.dto.consultationDTO.ConsultationDeleteDTO;
 import br.com.bcoder.appMed.dto.consultationDTO.ConsultationPostDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -12,26 +14,24 @@ import java.security.Principal;
 @RequestMapping("/consultations")
 public class ConsultationController {
 
-  private final IConsultationService consultationService;
+    @Autowired
+    private ConsultationService consultationService;
 
 
-  public ConsultationController ( IConsultationService consultationService ) {
-    this.consultationService = consultationService;
-  }
+    @GetMapping("/list")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public ResponseEntity<?> listCurrentUserConsultations(Principal principal) {
+        return consultationService.listCurrentUserConsultations(principal.getName());
+    }
 
-  @GetMapping("/list")
-  public ResponseEntity<?> listCurrentUserConsultations (Principal principal) {
-    return  consultationService.listCurrentUserConsultations(principal.getName());
-  }
+    @PostMapping("/register")
+    public ResponseEntity<?> registerConsultation(@RequestBody ConsultationPostDTO newConsultation, Principal principal) {
+         return consultationService.registerConsultation(newConsultation, principal.getName());
+    }
 
-  @PostMapping("/register")
-  public ResponseEntity<?> registerConsultation( @RequestBody ConsultationPostDTO newConsultation, Principal principal ) {
-    return consultationService.registerConsultation(newConsultation, principal.getName());
-  }
-
-  @DeleteMapping("/remove")
-  public ResponseEntity<?> deleteConsultation ( @RequestBody ConsultationDeleteDTO consultationDeleteDTO, Principal principal){
-    return consultationService.deleteConsultation(consultationDeleteDTO , principal.getName() );
-  }
+    @DeleteMapping("/remove")
+    public ResponseEntity<?> deleteConsultation(@RequestBody ConsultationDeleteDTO consultationDeleteDTO, Principal principal) {
+        return consultationService.deleteConsultation(consultationDeleteDTO, principal.getName());
+    }
 
 }

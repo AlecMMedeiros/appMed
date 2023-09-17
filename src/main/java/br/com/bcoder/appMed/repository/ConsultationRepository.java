@@ -10,9 +10,11 @@ import java.util.List;
 @Repository
 public interface ConsultationRepository extends JpaRepository<ConsultationModel, Long> {
 
-  @Query("select c from ConsultationModel c where c.id = :id")
-  ConsultationModel findConsultationModelById( String id );
-  List<ConsultationModel> findConsultationModelByUserId(Long userID);
-  void deleteById( String id);
+    @Query("select c from ConsultationModel c where c.id = :id")
+    ConsultationModel findConsultationModelById(String id);
+
+    List<ConsultationModel> findConsultationModelByUserId(Long userID);
+
+    void deleteById(String id);
 
 }
